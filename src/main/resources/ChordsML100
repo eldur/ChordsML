@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:chordsML="https://raw.github.com/eldur/ChordsML/master/src/main/resources/ChordsML100" 
+	targetNamespace="https://raw.github.com/eldur/ChordsML/master/src/main/resources/ChordsML100" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+	<xsd:element name="song">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="notation" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="meta">
+					<xsd:complexType>
+						<xsd:sequence maxOccurs="unbounded">
+							<xsd:element name="index">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute name="type" type="chordsML:indextype" use="required"/>
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="text">
+					<xsd:complexType>
+						<xsd:sequence maxOccurs="unbounded">
+							<xsd:element name="verse" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:complexContent>
+										<xsd:extension base="chordsML:venc">
+											<xsd:attribute name="type" type="chordsML:verseType"/>
+										</xsd:extension>
+									</xsd:complexContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="comment" type="xsd:string" minOccurs="0"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="title" use="required"/>
+			<xsd:attribute name="licence"/>
+			<xsd:attribute name="composer"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="venc" mixed="true">
+		<xsd:sequence maxOccurs="unbounded">
+			<xsd:element name="br" fixed="" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="repeat" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType mixed="true">
+					<xsd:sequence maxOccurs="unbounded">
+						<xsd:element name="chord" type="chordsML:chord" minOccurs="0"/>
+						<xsd:element name="br" fixed="" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="chord" type="chordsML:chord" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+<!-- TODO may be better via import -->
+	<xsd:simpleType name="chords">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="C"/>
+			<xsd:enumeration value="C7"/>
+			<xsd:enumeration value="c"/>
+			<xsd:enumeration value="C#"/>
+			<xsd:enumeration value="c#"/>
+			<xsd:enumeration value="D"/>
+			<xsd:enumeration value="D7"/>
+			<xsd:enumeration value="d"/>
+			<xsd:enumeration value="d7"/>
+			<xsd:enumeration value="D#"/>
+			<xsd:enumeration value="d#"/>
+			<xsd:enumeration value="E"/>
+			<xsd:enumeration value="E7"/>
+			<xsd:enumeration value="e"/>
+			<xsd:enumeration value="F"/>
+			<xsd:enumeration value="F7"/>
+			<xsd:enumeration value="f"/>
+			<xsd:enumeration value="F#"/>
+			<xsd:enumeration value="f#"/>
+			<xsd:enumeration value="G"/>
+			<xsd:enumeration value="G7"/>
+			<xsd:enumeration value="g"/>
+			<xsd:enumeration value="G#"/>
+			<xsd:enumeration value="g#"/>
+			<xsd:enumeration value="A"/>
+			<xsd:enumeration value="A7"/>
+			<xsd:enumeration value="a"/>
+			<xsd:enumeration value="a7"/>
+			<xsd:enumeration value="Asus2"/>
+			<xsd:enumeration value="B"/>
+			<xsd:enumeration value="B7"/>
+			<xsd:enumeration value="b"/>
+			<xsd:enumeration value="H"/>
+			<xsd:enumeration value="H7"/>
+			<xsd:enumeration value="h"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="verseType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="chorus"/>
+			<xsd:enumeration value="intro"/>
+			<xsd:enumeration value="outro"/>
+			<xsd:enumeration value="bridge"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="indextype">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="begin"/>
+			<xsd:enumeration value="title"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="chord" mixed="true">
+		<xsd:attribute name="alt" type="xsd:boolean" default="false"/>
+		<xsd:attribute name="value" type="chordsML:chords" use="required"/>
+	</xsd:complexType>
+</xsd:schema>
