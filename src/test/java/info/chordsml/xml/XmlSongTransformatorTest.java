@@ -90,6 +90,16 @@ public class XmlSongTransformatorTest {
 
 	@Test
 	public void testCompleteGenerate() {
+		LaTexStyle style = newMockStyle();
+		sti = new XmlSongTransformator(style, new DefaultNameGenerator());
+		String x = readFromFile(getFileFromCP("validTestSong.xml"));
+		sti.addSong(x);
+		ChordsMl.writeGenerated(sti.generate(out));
+		// TODO incomplete
+		System.out.println("break here, and execute for e.g. pdflatex");
+	}
+
+	public static LaTexStyle newMockStyle() {
 		LaTexStyle style = mock(LaTexStyle.class);
 		File texHeader = getFileFromCP("style/header.tex");
 		texHeader.getClass();
@@ -98,7 +108,6 @@ public class XmlSongTransformatorTest {
 		File texFooter = getFileFromCP("style/footer.tex");
 		texFooter.getClass();
 		when(style.getTexFooter()).thenReturn(texFooter);
-		String x = readFromFile(getFileFromCP("validTestSong.xml"));
 
 		String songStyUrl = "http://prdownloads.sourceforge.net/songs/songs.sty?download";
 		File songStyFile = new File(ChordsMlTest.TESTFOLDER, "songs.sty");
@@ -114,14 +123,10 @@ public class XmlSongTransformatorTest {
 				new TransformatorChain(new XslTransformer(
 						getFileFromCP("style/test.xslt")), new FileBasedTransformer(
 						FileBasedTransformer.getDefaultFile()), new TexQuoteTransformer()));
-		sti = new XmlSongTransformator(style, new DefaultNameGenerator());
-		sti.addSong(x);
-		ChordsMl.writeGenerated(sti.generate(out));
-		// TODO incomplete
-		System.out.println("break here, and execute for e.g. pdflatex");
+		return style;
 	}
 
-	private File getFileFromCP(String path) {
+	private static File getFileFromCP(String path) {
 		try {
 			return new File(Resources.getResource(path).toURI());
 		} catch (URISyntaxException e) {
