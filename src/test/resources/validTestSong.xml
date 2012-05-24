@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chordsML:song
+	xsi:schemaLocation="https://raw.github.com/eldur/ChordsML/master/src/main/resources/ChordsML100 songml.xsd"
+	xmlns:chordsML="https://raw.github.com/eldur/ChordsML/master/src/main/resources/ChordsML100"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" title="text"
+	composer="text" licence="text">
+	<meta>
+		<index type="begin">String</index>
+	</meta>
+	<text>
+		<verse type="chorus">text</verse>
+		<verse>
+			test
+			<chord value="C">o</chord>n the
+			<br />
+			test
+		</verse>
+	</text>
+</chordsML:song>

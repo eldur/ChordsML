@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="key0">"…":::"\\ldots"</entry>
+<entry key="key01">"\.\.\.":::"\\ldots"</entry>
+<entry key="key1">"\\par\n[\t]+":::"\\par"</entry>
+<entry key="key2">"[\t]+":::""</entry>
+<entry key="key5">":]\\n",":]
+		"</entry>
+<entry key="key4">"\\par":::"\\par"</entry>
+<entry key="key6">"\\begin\{SBVerse\}
+":::"\\begin{SBVerse}
+		"</entry>
+<entry key="key7">"\\begin\{RepeatPar\}
+":::"\\begin\{RepeatPar\}"</entry>
+</properties>

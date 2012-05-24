@@ -1,6 +1,6 @@
 package info.chordsml;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,8 +15,8 @@ import com.google.common.io.Resources;
 
 public class ChordsMlTest {
 
-	public static final File TESTFOLDER = new File("target/livetst");
-	
+	public static final File TESTFOLDER = new File("target/custom-tests");
+
 	@Test
 	public void test() throws URISyntaxException, IOException {
 		URL schema = ChordsMl.getSchema();

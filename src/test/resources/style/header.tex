@@ -1,0 +1,27 @@
+\documentclass[a5paper, twoside]{scrbook}
+\usepackage[chorded]{songs} % http://songs.sourceforge.net/songsdoc/songs.html 
+\usepackage[utf8]{inputenc} % detect utf-8 linux or latin1 for win
+\usepackage{ae, aecompl}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\newindex{titleidx}{titleidx}
+\noversenumbers
+\renewcommand{\everychorus}{\textnote{Chorus:}}
+
+\newcommand{\olqq}{\glqq}
+\newcommand{\orqq}{\grqq~}
+
+\newenvironment{RepeatPar}{//:\,}{\,://}
+\renewenvironment{RepeatPar}{$\lVert$:\,}{\,:$\rVert$}
+\onesongcolumn
+\sloppy
+\geometry{paper=a5paper,left=3mm,right=20mm,top=3mm,bottom=3mm}
+\begin{document}
+
+\begin{songs}{titleidx}
+
