@@ -2,6 +2,7 @@ package info.chordsml.songTransformator;
 
 import static info.chordsml.songTransformator.SongTransformatorTestUtils.execLatex;
 import static info.chordsml.songTransformator.SongTransformatorTestUtils.getFileFromCP;
+import static info.chordsml.songTransformator.SongTransformatorTestUtils.newMockStyle;
 import static info.chordsml.songTransformator.SongTransformatorTestUtils.newXmlMockStyle;
 import static info.chordsml.songTransformator.SongTransformatorTestUtils.readFromFile;
 import static org.junit.Assert.assertEquals;
@@ -9,9 +10,11 @@ import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import info.chordsml.ChordsMl;
 import info.chordsml.ChordsMlTest;
-import info.chordsml.XmlNameGenerator;
 import info.chordsml.ISongTransformator;
 import info.chordsml.LaTexStyle;
+import info.chordsml.SimpleNameGenerator;
+import info.chordsml.XmlNameGenerator;
+import info.chordsml.transformer.SimpleTransformer;
 
 import java.io.File;
 import java.util.Collections;
@@ -81,10 +84,21 @@ public class LaTexSongTransformatorTest {
 	}
 
 	@Test
-	public void testCompleteGenerate() {
+	public void testCompleteGenerateXml() {
 		LaTexStyle style = newXmlMockStyle();
 		sti = new LaTexSongTransformator(style, new XmlNameGenerator());
 		sti.addSong(readFromFile(getFileFromCP("validTestSong.xml")));
+		ChordsMl.writeGenerated(sti.generate(out));
+
+		execLatex(out, "Output written on out.pdf");
+
+	}
+
+	@Test
+	public void testCompleteGenerateTxt() {
+		LaTexStyle style = newMockStyle(new SimpleTransformer());
+		sti = new LaTexSongTransformator(style, new SimpleNameGenerator());
+		sti.addSong(readFromFile(getFileFromCP("validTestSong.txt")));
 		ChordsMl.writeGenerated(sti.generate(out));
 
 		execLatex(out, "Output written on out.pdf");

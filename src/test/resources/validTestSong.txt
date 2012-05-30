@@ -1,0 +1,9 @@
+title="text"
+composer="text" 
+licence="text"
+meta.index.begin="String"
+verse.chorus=
+  Text
+verse=
+  test {C}on the
+  test
