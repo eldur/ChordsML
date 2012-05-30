@@ -1,4 +1,4 @@
-package info.chordsml.xml;
+package info.chordsml.songTransformator;
 
 import info.chordsml.INameGenerator;
 import info.chordsml.ISongTransformator;

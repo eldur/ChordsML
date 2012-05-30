@@ -1,4 +1,4 @@
-package info.chordsml.xml;
+package info.chordsml.songTransformator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -10,6 +10,7 @@ import info.chordsml.DefaultNameGenerator;
 import info.chordsml.ISongTransformator;
 import info.chordsml.LaTexStyle;
 import info.chordsml.TransformatorChain;
+import info.chordsml.songTransformator.XmlSongTransformator;
 import info.chordsml.transformer.FileBasedTransformer;
 import info.chordsml.transformer.TexQuoteTransformer;
 import info.chordsml.transformer.XslTransformer;
