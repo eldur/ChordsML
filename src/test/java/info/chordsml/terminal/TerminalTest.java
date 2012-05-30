@@ -5,8 +5,8 @@ import info.chordsml.DefaultNameGenerator;
 import info.chordsml.INameGenerator;
 import info.chordsml.ISongTransformator;
 import info.chordsml.LaTexStyle;
-import info.chordsml.xml.XmlSongTransformator;
-import info.chordsml.xml.XmlSongTransformatorTest;
+import info.chordsml.songTransformator.XmlSongTransformator;
+import info.chordsml.songTransformator.XmlSongTransformatorTest;
 
 import java.io.File;
 
