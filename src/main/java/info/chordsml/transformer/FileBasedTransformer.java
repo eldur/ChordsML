@@ -1,6 +1,6 @@
 package info.chordsml.transformer;
 
-import info.chordsml.Transformator;
+import info.chordsml.ITransformator;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,7 +12,7 @@ import java.util.regex.PatternSyntaxException;
 
 import com.google.common.io.Resources;
 
-public class FileBasedTransformer implements Transformator {
+public class FileBasedTransformer implements ITransformator {
 
 	private final Properties p = new Properties();
 

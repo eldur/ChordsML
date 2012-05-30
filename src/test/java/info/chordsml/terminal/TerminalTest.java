@@ -1,12 +1,12 @@
 package info.chordsml.terminal;
 
 import info.chordsml.ChordsMlTest;
-import info.chordsml.DefaultNameGenerator;
-import info.chordsml.INameGenerator;
+import info.chordsml.XmlNameGenerator;
+import info.chordsml.IFilenameGenerator;
 import info.chordsml.ISongTransformator;
 import info.chordsml.LaTexStyle;
-import info.chordsml.songTransformator.XmlSongTransformator;
-import info.chordsml.songTransformator.XmlSongTransformatorTest;
+import info.chordsml.songTransformator.SongTransformatorTestUtils;
+import info.chordsml.songTransformator.LaTexSongTransformator;
 
 import java.io.File;
 
@@ -25,14 +25,14 @@ public class TerminalTest {
 			@Override
 			protected void configure() {
 				bind(LaTexStyle.class).toInstance(
-						XmlSongTransformatorTest.newMockStyle());
+						SongTransformatorTestUtils.newXmlMockStyle());
 
 				Provider<RemoteSongDownload> provider = Providers.of(null);
 				bind(RemoteSongDownload.class).toProvider(provider);
 
-				bind(ISongTransformator.class).to(XmlSongTransformator.class);
+				bind(ISongTransformator.class).to(LaTexSongTransformator.class);
 
-				bind(INameGenerator.class).to(DefaultNameGenerator.class);
+				bind(IFilenameGenerator.class).to(XmlNameGenerator.class);
 				requestStaticInjection(Terminal.class);
 			}
 

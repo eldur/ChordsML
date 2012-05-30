@@ -9,6 +9,6 @@ public interface LaTexStyle {
   List<File> getMisc();
   File getTexHeader();
   File getTexFooter();
-  Transformator getSongTransformator();
+  ITransformator getSongTransformator();
   
 }

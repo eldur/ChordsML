@@ -4,20 +4,20 @@ import java.util.Locale;
 
 import com.google.common.collect.Lists;
 
-public class TransformatorChain implements Transformator {
+public class TransformatorChain implements ITransformator {
 
-	private final Iterable<Transformator> replacers;
+	private final Iterable<ITransformator> replacers;
 
-	public TransformatorChain(Transformator... replacers) {
+	public TransformatorChain(ITransformator... replacers) {
 		this(Lists.newArrayList(replacers));
 	}
 
-	public TransformatorChain(Iterable<Transformator> replacers) {
+	public TransformatorChain(Iterable<ITransformator> replacers) {
 		this.replacers = replacers;
 	}
 
 	public String replace(String text, Locale locale) {
-		for (Transformator replacer : replacers) {
+		for (ITransformator replacer : replacers) {
 			text = replacer.replace(text, locale);
 		}
 		return text;

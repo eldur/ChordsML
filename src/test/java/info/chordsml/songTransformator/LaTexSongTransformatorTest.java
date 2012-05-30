@@ -1,25 +1,19 @@
 package info.chordsml.songTransformator;
 
+import static info.chordsml.songTransformator.SongTransformatorTestUtils.execLatex;
+import static info.chordsml.songTransformator.SongTransformatorTestUtils.getFileFromCP;
+import static info.chordsml.songTransformator.SongTransformatorTestUtils.newXmlMockStyle;
+import static info.chordsml.songTransformator.SongTransformatorTestUtils.readFromFile;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import info.chordsml.ChordsMl;
 import info.chordsml.ChordsMlTest;
-import info.chordsml.DefaultNameGenerator;
+import info.chordsml.XmlNameGenerator;
 import info.chordsml.ISongTransformator;
 import info.chordsml.LaTexStyle;
-import info.chordsml.TransformatorChain;
-import info.chordsml.songTransformator.XmlSongTransformator;
-import info.chordsml.transformer.FileBasedTransformer;
-import info.chordsml.transformer.TexQuoteTransformer;
-import info.chordsml.transformer.XslTransformer;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -28,13 +22,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.google.common.io.Files;
-import com.google.common.io.Resources;
 
-public class XmlSongTransformatorTest {
+public class LaTexSongTransformatorTest {
 
 	private static String xml1 = "";
 	private static String xml1fail = "";
@@ -69,7 +60,7 @@ public class XmlSongTransformatorTest {
 		out.delete();
 		LaTexStyle style = mock(LaTexStyle.class);
 
-		sti = new XmlSongTransformator(style, new DefaultNameGenerator());
+		sti = new LaTexSongTransformator(style, new XmlNameGenerator());
 	}
 
 	@Test
@@ -91,48 +82,13 @@ public class XmlSongTransformatorTest {
 
 	@Test
 	public void testCompleteGenerate() {
-		LaTexStyle style = newMockStyle();
-		sti = new XmlSongTransformator(style, new DefaultNameGenerator());
-		String x = readFromFile(getFileFromCP("validTestSong.xml"));
-		sti.addSong(x);
+		LaTexStyle style = newXmlMockStyle();
+		sti = new LaTexSongTransformator(style, new XmlNameGenerator());
+		sti.addSong(readFromFile(getFileFromCP("validTestSong.xml")));
 		ChordsMl.writeGenerated(sti.generate(out));
-		// TODO incomplete
-		System.out.println("break here, and execute for e.g. pdflatex");
-	}
 
-	public static LaTexStyle newMockStyle() {
-		LaTexStyle style = mock(LaTexStyle.class);
-		File texHeader = getFileFromCP("style/header.tex");
-		texHeader.getClass();
-		when(style.getTexHeader()).thenReturn(texHeader);
+		execLatex(out, "Output written on out.pdf");
 
-		File texFooter = getFileFromCP("style/footer.tex");
-		texFooter.getClass();
-		when(style.getTexFooter()).thenReturn(texFooter);
-
-		String songStyUrl = "http://prdownloads.sourceforge.net/songs/songs.sty?download";
-		File songStyFile = new File(ChordsMlTest.TESTFOLDER, "songs.sty");
-		try {
-			String songSty = Resources.toString(new URL(songStyUrl), Charsets.UTF_8);
-			Files.write(songSty, songStyFile, Charsets.UTF_8);
-		} catch (MalformedURLException e) {
-			throw new IllegalStateException(e);
-		} catch (IOException e) {
-			throw new IllegalStateException(e);
-		}
-		when(style.getSongTransformator()).thenReturn(
-				new TransformatorChain(new XslTransformer(
-						getFileFromCP("style/test.xslt")), new FileBasedTransformer(
-						FileBasedTransformer.getDefaultFile()), new TexQuoteTransformer()));
-		return style;
-	}
-
-	private static File getFileFromCP(String path) {
-		try {
-			return new File(Resources.getResource(path).toURI());
-		} catch (URISyntaxException e) {
-			throw new IllegalStateException(e);
-		}
 	}
 
 	@Test
@@ -160,12 +116,4 @@ public class XmlSongTransformatorTest {
 		sti.generate(out);
 	}
 
-	private static String readFromFile(File f) {
-		try {
-			return Files.toString(f, Charsets.UTF_8);
-		} catch (IOException e) {
-			throw new IllegalStateException(e);
-		}
-
-	}
 }

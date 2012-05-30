@@ -1,7 +1,7 @@
 package info.chordsml.transformer;
 
 import info.chordsml.ChordsMl;
-import info.chordsml.Transformator;
+import info.chordsml.ITransformator;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +21,7 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.transform.JDOMResult;
 import org.jdom.transform.JDOMSource;
 
-public class XslTransformer implements Transformator {
+public class XslTransformer implements ITransformator {
 
 	private final SAXBuilder builder;
 	private final File[] xslts;

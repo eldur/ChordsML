@@ -1,7 +1,7 @@
 package info.chordsml.transformer;
 
 import static org.junit.Assert.assertEquals;
-import info.chordsml.Transformator;
+import info.chordsml.ITransformator;
 
 import java.util.Locale;
 
@@ -16,7 +16,7 @@ public class FileBasedTransformerTest {
 
 		// TODO check properties content; looks strange
 		// TODO try to remove properties
-		Transformator t = new FileBasedTransformer(
+		ITransformator t = new FileBasedTransformer(
 				FileBasedTransformer.getDefaultFile());
 		assertEquals("\\ldots", t.replace("...", locale));
 		assertEquals("", t.replace("\t", locale));

@@ -1,10 +1,9 @@
 package info.chordsml.songTransformator;
 
-import info.chordsml.INameGenerator;
+import info.chordsml.IFilenameGenerator;
 import info.chordsml.ISongTransformator;
 import info.chordsml.LaTexStyle;
-import info.chordsml.Transformator;
-import info.chordsml.transformer.XslTransformer;
+import info.chordsml.ITransformator;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +14,6 @@ import java.util.Map.Entry;
 
 import javax.inject.Inject;
 
-import org.jdom.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,25 +22,25 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.io.Files;
 
-public class XmlSongTransformator implements ISongTransformator {
+public class LaTexSongTransformator implements ISongTransformator {
 
-	private final List<String> songDocuments;
+	private final List<String> songRawTexts;
 
-	private final INameGenerator nameGenerator;
+	private final IFilenameGenerator nameGenerator;
 
 	@SuppressWarnings("unused")
 	private final Logger log = LoggerFactory
-			.getLogger(XmlSongTransformator.class);
+			.getLogger(LaTexSongTransformator.class);
 
 	private final LaTexStyle style;
 
 	private final String songSubFolderName = "songs";
 
 	@Inject
-	public XmlSongTransformator(LaTexStyle style, INameGenerator nameGenerator) {
+	public LaTexSongTransformator(LaTexStyle style, IFilenameGenerator nameGenerator) {
 		this.style = style;
 		this.nameGenerator = nameGenerator;
-		songDocuments = Lists.newArrayList();
+		songRawTexts = Lists.newArrayList();
 
 	}
 
@@ -51,7 +49,7 @@ public class XmlSongTransformator implements ISongTransformator {
 	 */
 	public void addSong(String song) {
 
-		songDocuments.add(song);
+		songRawTexts.add(song);
 	}
 
 	private static String readFromFile(File f) {
@@ -81,16 +79,16 @@ public class XmlSongTransformator implements ISongTransformator {
 		}
 
 		Map<String, String> filenameSongMap = Maps.newHashMap();
-		Transformator repl = style.getSongTransformator();
-		for (String document : songDocuments) {
+		ITransformator repl = style.getSongTransformator();
+		for (String rawText : songRawTexts) {
 
-			String filename = generateFilename(XslTransformer.makeDocument(document));
+			String filename = nameGenerator.generate(rawText);
 			if (repl != null) {
 				Locale locale = Locale.getDefault(); // TODO get song locale or overide
 																							// by style
-				document = repl.replace(document, locale);
+				rawText = repl.replace(rawText, locale);
 			}
-			filenameSongMap.put(filename, document);
+			filenameSongMap.put(filename, rawText);
 		}
 
 		for (Entry<String, String> entry : filenameSongMap.entrySet()) {
@@ -110,11 +108,6 @@ public class XmlSongTransformator implements ISongTransformator {
 		outputMap.put(outFile, result.toString());
 
 		return outputMap;
-	}
-
-	private String generateFilename(Document document) {
-		return nameGenerator.generate(document);
-
 	}
 
 }

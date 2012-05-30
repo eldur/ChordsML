@@ -1,7 +1,7 @@
 package info.chordsml.transformer;
 
 import info.chordsml.QuoteException;
-import info.chordsml.Transformator;
+import info.chordsml.ITransformator;
 
 import java.util.Collections;
 import java.util.Locale;
@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Maps;
 
-public class TexQuoteTransformer implements Transformator {
+public class TexQuoteTransformer implements ITransformator {
 
 	private static final String quoteReplaceExpr = "\"[a-zA-Z\\s\\n\\\\\\[\\\\\\]\\W]+\"";
 

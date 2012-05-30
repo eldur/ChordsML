@@ -3,7 +3,7 @@ package info.chordsml.transformer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import info.chordsml.QuoteException;
-import info.chordsml.Transformator;
+import info.chordsml.ITransformator;
 
 import java.util.Locale;
 
@@ -12,7 +12,7 @@ import org.junit.Test;
 
 public class TexQuoteTransformerTest {
 
-	private Transformator r;
+	private ITransformator r;
 	private final Locale locale = Locale.CHINA;
 
 	@Before
